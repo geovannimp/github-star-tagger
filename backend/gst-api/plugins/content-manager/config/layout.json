@@ -1,0 +1,22 @@
+{
+  "tag": {
+    "attributes": {
+      "name": {
+        "appearance": ""
+      }
+    }
+  },
+  "repository": {
+    "attributes": {
+      "name": {
+        "appearance": ""
+      },
+      "description": {
+        "appearance": ""
+      },
+      "url": {
+        "appearance": ""
+      }
+    }
+  }
+}

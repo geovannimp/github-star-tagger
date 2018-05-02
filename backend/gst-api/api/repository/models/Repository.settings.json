@@ -1,0 +1,36 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "repository",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "multiple": false,
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "multiple": false,
+      "type": "text"
+    },
+    "url": {
+      "multiple": false,
+      "type": "string",
+      "required": true
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "repository"
+    },
+    "user": {
+      "model": "user",
+      "via": "repositories",
+      "plugin": "users-permissions"
+    }
+  }
+}
