@@ -1,6 +1,7 @@
 const restify = require('restify');
 const cookieParser = require('restify-cookies');
 const request = require('request');
+const corsMiddleware = require('restify-cors-middleware')
 
 
 import { github } from './services';
@@ -10,11 +11,17 @@ import routes from "./routes";
 import { INSPECT_MAX_BYTES } from 'buffer';
 import UserService from './services/user';
 
-const { AuthRoutes, UserRoutes, ImportRoutes } = routes;
-
 export interface injectedServices {
     userService: UserService;
 }
+
+const { AuthRoutes, UserRoutes, ImportRoutes } = routes;
+const cors = corsMiddleware({
+    origins: ['*'],
+    allowHeaders: ['API-Token', 'Authorization'],
+    exposeHeaders: ['API-Token-Expiry']
+})
+
 
 export default {
     create: (userService: UserService) => {
@@ -28,6 +35,8 @@ export default {
             } as injectedServices;
             return next();
         })
+        server.pre(cors.preflight)
+        server.use(cors.actual)
         server.use(restify.plugins.acceptParser(server.acceptable));
         server.use(restify.plugins.queryParser());
         server.use(restify.plugins.bodyParser());
