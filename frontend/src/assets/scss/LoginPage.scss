@@ -23,20 +23,33 @@
         justify-content: center;
         height: 100%;
 
-        .add-account {
+        .add-account, .account {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-around;
             background: #43474C;
-            width: 350px;
             height: 400px;
-            font-size: 24px;
             border-radius: 5px;
-            padding: 50px 0 0 0;
             box-sizing: border-box;
             color: white;
             text-decoration: none;
+            font-size: 24px;
+        }
+
+        .add-account {
+            width: 350px;
+            padding: 50px 0 0 0;
+        }
+
+        .account {
+            width: 300px;
+            padding: 20px 0 20px 0;
+
+            img {
+                width: 80%;
+                border-radius: 5px;
+            }
         }
     }
 }

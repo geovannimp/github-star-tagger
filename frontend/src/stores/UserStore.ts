@@ -1,9 +1,10 @@
 import { observable, action, runInAction, computed } from 'mobx';
 import { Api } from '../api';
+import { persist } from 'mobx-persist'
 
 export default class UserStore {
-    @observable public authorization: string;
-    @observable public user: any;
+    @persist @observable public authorization: string;
+    @persist('object') @observable public user: any;
 
     @computed get api() {
         return new Api('process.env.API_URL', this.authorization);

@@ -5,7 +5,7 @@ const querystring = require('querystring');
 import { User } from "../entity/User";
 import { Token } from "../entity/Token";
 import { Repository } from "../entity/Repository";
-import Utils from "../routes/Utils";
+import Utils from "../Utils";
 
 class UserService {
     private userRepo;
@@ -38,7 +38,7 @@ class UserService {
             userModel.url = githubUser.html_url;
             userModel.tokens = [token];
         }
-        await userRepo.save(userModel);
+        await this.connection.manager.save(userModel);
     }
 
     public importRepositoriesFromGithub = async (user, githubRepositories) => {

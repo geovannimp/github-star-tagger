@@ -27,7 +27,7 @@ export default {
             tokenModel.access_token = authorization;
             tokenModel.browser = req.userAgent();
 
-            userService.createUserFromGithub(user, token);
+            userService.createUserFromGithub(user, tokenModel);
 
             res.redirect(`${req.cookies['redirect']}?token=${authorization}`, next);
         } catch (e) {
