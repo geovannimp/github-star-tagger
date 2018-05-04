@@ -1,0 +1,32 @@
+.landing-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #43474C;
+    color: #ECECEC;
+    font-size: 38px;
+
+    .container {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+
+        p {
+            width: 50%;
+        }
+    }
+
+    .canvas-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+}
