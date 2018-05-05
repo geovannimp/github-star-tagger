@@ -49,9 +49,10 @@ export default {
             return next();
         });
 
-        server.get('/auth/github', AuthRoutes.github);
-        server.get('/auth/github/callback', AuthRoutes.githubCallback);
+        server.get('/auth/github', AuthRoutes.github)
+        server.get('/auth/github/callback', AuthRoutes.githubCallback)
         server.get('/profile', UserRoutes.profile)
+        server.get('/repositories', UserRoutes.repositories)
         server.get('/import/repositories', ImportRoutes.repositories)
     },
     start: (server) => {

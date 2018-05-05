@@ -15,5 +15,18 @@ export default {
                 error: 'Invalid authorization token'
             }, next)
         }
+    },
+    repositories: async (req, res, next) => {
+        const { userService } = req.injected as injectedServices;
+        const authorization = req.header('Authorization');
+        const user = await userService.loadUser(authorization, ["repositories"]);
+        if(user) {
+            res.send(user.repositories, next)
+        } else {
+            res.status(401);
+            res.send({
+                error: 'Invalid authorization token'
+            }, next)
+        }
     }
 }

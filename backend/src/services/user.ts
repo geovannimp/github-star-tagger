@@ -16,12 +16,12 @@ class UserService {
         this.tokenRepo = connection.getRepository(Token);
     }
 
-    public loadUser = async (authorization) => {
+    public loadUser = async (authorization, relations?) => {
         const { userRepo, tokenRepo } = this;
         const token = await tokenRepo.findOne({access_token: authorization});
         if(!token)
             return;
-        return await userRepo.findOne(token.user);
+        return await userRepo.findOne(token.user, { relations });
     }
 
     public createUserFromGithub = async (githubUser, token) => {
