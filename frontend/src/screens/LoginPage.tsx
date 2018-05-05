@@ -18,9 +18,10 @@ export default class LoginPage extends Component<any> {
         return this.props as InjectedProps;
     }
     componentDidMount() {
-        const { location } = this.props;
+        const { location, history } = this.props;
         const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
         if (token) {
+            history.replace(location.pathname);
             this.injected.userStore.fetchUser(token);
         }
     }

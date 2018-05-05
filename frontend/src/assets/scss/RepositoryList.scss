@@ -1,0 +1,42 @@
+.repository-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+        border: 1px solid #CCCCCC;
+        border-radius: 5px;
+        margin: 15px 0;
+        padding: 20px;
+
+        a {
+            color: #5978AF;
+            text-decoration: none;
+            font-size: 20px;
+            height: 40px;
+        }
+
+        .tags-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .add-tag {
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+                border-radius: 25px;
+                background: #728895;
+                display: inline-block;
+                text-align: center;
+                font-weight: bold;
+                outline: none;
+                transition: .2s ease-in-out background;
+            }
+
+            .add-tag:hover {
+                background: #444;
+            }
+        }
+    }
+}
