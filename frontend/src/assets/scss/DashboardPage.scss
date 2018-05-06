@@ -8,6 +8,8 @@
         padding-top: 20px;
 
         > aside {
+            flex: .3;
+
             img{
                 width: 90%;
                 border-radius: 5px;
@@ -21,7 +23,10 @@
                 margin-bottom: 5px;
                 display: inline-block;
             }
-            width: 30%;
+        }
+
+        > section {
+            flex: .7;
         }
     }
 }

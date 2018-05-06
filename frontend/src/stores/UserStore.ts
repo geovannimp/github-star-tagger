@@ -1,14 +1,27 @@
 import { observable, action, runInAction, computed } from 'mobx';
 import { Api } from '../api';
 import { persist } from 'mobx-persist'
+import Repository from '../models/Repository';
 
 export default class UserStore {
     @persist @observable public authorization: string;
     @persist('object') @observable public user: any;
-    @persist('list') @observable public repositories: any[] = [];
+    @persist('list') @observable public repositories: Repository[] = [];
+    @persist @observable public filter = "";
+
+    @computed get filteredRepositories() {
+        return this.filter ? this.repositories.filter(repo => {
+            return repo.tags.filter(tag => tag.includes(this.filter)).length
+        }) : this.repositories;
+    }
 
     @computed get api() {
         return new Api('process.env.API_URL', this.authorization);
+    }
+
+    @action
+    public setFilter(filter) {
+        this.filter = filter;
     }
 
     @action
@@ -31,7 +44,7 @@ export default class UserStore {
         try {
             const { data: repositories } = await this.api.get('/repositories');
             runInAction(() => {
-                this.repositories = repositories;
+                this.repositories = repositories.map(repo => Repository.create(repo));
             })
         } catch (error) {
             runInAction(() => {
@@ -39,18 +52,4 @@ export default class UserStore {
             })
         }
     }
-
-    @action
-    public async updateRepositoryTag(repository, tags) {
-        try {
-            const { data: repositories } = await this.api.put(`/repositories/${repository.hash}/tags`, {
-                tags
-            });
-            runInAction(() => {
-                repository.tags = tags;
-            })
-        } catch (error) {}
-    }
-
-
 }

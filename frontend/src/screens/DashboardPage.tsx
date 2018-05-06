@@ -6,6 +6,7 @@ import UserStore from '../stores/UserStore';
 import { Header, RepositoryList, DashboardSearchInput } from '../components';
 import '../assets/scss/DashboardPage.scss';
 import Utils from '../Utils';
+import Repository from '../models/Repository';
 
 var qs = require('qs');
 
@@ -23,13 +24,17 @@ export default class DashboardPage extends Component<any> {
         this.injected.userStore.fetchRepositories();
     }
 
-    onUpdateTags = (repository:any, tags: string) => {
+    onUpdateTags = (repository: Repository, tags: string) => {
         const processedTagList = Utils.stringToUniqueList(tags);
-        this.injected.userStore.updateRepositoryTag(repository, processedTagList);
+        repository.updateTags(this.injected.userStore.api, processedTagList);
+    }
+
+    onSearch = (filter: string) => {
+        this.injected.userStore.setFilter(filter);
     }
 
     render() {
-        const { user, repositories } = this.injected.userStore;
+        const { user, filteredRepositories, filter } = this.injected.userStore;
         return (
             <>
                 <Header/>
@@ -41,8 +46,8 @@ export default class DashboardPage extends Component<any> {
                             <span>{user.username}</span>
                         </aside>
                         <section>
-                            <DashboardSearchInput/>
-                            <RepositoryList repositories={repositories} onUpdateTags={this.onUpdateTags}/>
+                            <DashboardSearchInput filter={filter} onSearch={this.onSearch}/>
+                            <RepositoryList repositories={filteredRepositories} onUpdateTags={this.onUpdateTags}/>
                         </section>
                     </div>
                 </main>

@@ -1,15 +1,20 @@
 import * as React from "react";
 import { Component } from 'react';
 import * as Popover from 'react-popover';
+import Emoji from 'react-emoji-render';
 
 import * as editIcon from '../assets/img/edit-icon.svg';
 import '../assets/scss/RepositoryList.scss';
 import '../assets/scss/AddTagPopover.scss';
+import Repository from '../models/Repository';
+import { observer } from 'mobx-react';
 
 export interface RepositoryListProps {
-    repositories: any[];
-    onUpdateTags: (respository:any, tags: string) => void;
+    repositories: Repository[];
+    onUpdateTags: (respository: Repository, tags: string) => void;
 }
+
+@observer
 export default class RepositoryList extends Component<RepositoryListProps> {
     render() {
         const { repositories, onUpdateTags } = this.props;
@@ -18,8 +23,8 @@ export default class RepositoryList extends Component<RepositoryListProps> {
                 {repositories.map(repository => (
                     <li key={repository.hash}>
                         <a href={repository.url}>{repository.title}</a>
-                        <p>{repository.description}</p>
-                        <TagsList repository={repository} onUpdateTags={onUpdateTags}/>
+                        <Emoji className='description' text={repository.description}/>
+                        <TagsList repository={repository} tags={repository.tags} onUpdateTags={onUpdateTags}/>
                     </li>
                 ))}
             </ul>
@@ -28,8 +33,9 @@ export default class RepositoryList extends Component<RepositoryListProps> {
 }
 
 interface TagsListProps {
-    repository: any;
-    onUpdateTags: (respository:any, tags: string) => void;
+    repository: Repository;
+    tags: string[];
+    onUpdateTags: (respository: Repository, tags: string) => void;
 }
 class TagsList extends Component<TagsListProps> {
     public state = {
@@ -42,6 +48,15 @@ class TagsList extends Component<TagsListProps> {
         this.state = {
             ...this.state,
             tagsValue: props.repository.tags.join(', '),
+        }
+    }
+
+    componentWillReceiveProps(nextProps: Readonly<TagsListProps>) {
+        if(this.props.tags !== nextProps.tags) {
+            this.setState({
+                ...this.state,
+                tagsValue: nextProps.tags.join(", "),
+            })
         }
     }
 
@@ -64,10 +79,11 @@ class TagsList extends Component<TagsListProps> {
         const { repository, onUpdateTags } = this.props;
         const { tagsValue } = this.state;
         onUpdateTags(repository, tagsValue);
+        this.toggleAddTag(false);
     }
 
     render() {
-        const { repository: { tags, hash } } = this.props;
+        const { repository: { hash }, tags } = this.props;
         const { addTagOpened, tagsValue } = this.state;
         return (
             <ul className="tags-list">
