@@ -15,7 +15,7 @@ export interface injectedServices {
     userService: UserService;
 }
 
-const { AuthRoutes, UserRoutes, ImportRoutes } = routes;
+const { AuthRoutes, UserRoutes, ImportRoutes, RepositoriesRoutes } = routes;
 const cors = corsMiddleware({
     origins: ['*'],
     allowHeaders: ['API-Token', 'Authorization'],
@@ -49,10 +49,27 @@ export default {
             return next();
         });
 
-        server.get('/auth/github', AuthRoutes.github);
-        server.get('/auth/github/callback', AuthRoutes.githubCallback);
-        server.get('/profile', UserRoutes.profile)
-        server.get('/import/repositories', ImportRoutes.repositories)
+        const requireAuth = async (req, res, next) => {
+            const { userService } = req.injected as injectedServices;
+            const authorization = req.header('Authorization');
+            const user = await userService.loadUser(authorization);
+            if(user) {
+                req.user = user;
+                return next();
+            } else {
+                res.status(401);
+                res.send({
+                    error: 'Invalid authorization token'
+                }, next)
+            }
+        }
+
+        server.get('/auth/github', AuthRoutes.github)
+        server.get('/auth/github/callback', AuthRoutes.githubCallback)
+        server.get('/profile', requireAuth, UserRoutes.profile)
+        server.get('/repositories', requireAuth, RepositoriesRoutes.list)
+        server.put('/repositories/:hash/tags', requireAuth, RepositoriesRoutes.updateTags)
+        server.get('/import/repositories', requireAuth, ImportRoutes.repositories)
     },
     start: (server) => {
         server.listen(8080, function () {

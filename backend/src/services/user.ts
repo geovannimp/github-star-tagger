@@ -10,18 +10,20 @@ import Utils from "../Utils";
 class UserService {
     private userRepo;
     private tokenRepo;
+    private repositoryRepo;
 
     constructor(private connection){
         this.userRepo = connection.getRepository(User);
         this.tokenRepo = connection.getRepository(Token);
+        this.repositoryRepo = connection.getRepository(Repository);
     }
 
-    public loadUser = async (authorization) => {
+    public loadUser = async (authorization, relations?) => {
         const { userRepo, tokenRepo } = this;
         const token = await tokenRepo.findOne({access_token: authorization});
         if(!token)
             return;
-        return await userRepo.findOne(token.user);
+        return await userRepo.findOne(token.user, { relations });
     }
 
     public createUserFromGithub = async (githubUser, token) => {
@@ -53,6 +55,16 @@ class UserService {
             return repositoryModel;
         });
         await userRepo.save(user);
+    }
+
+    public loadRepository = async (user, hash) => {
+        const { repositoryRepo } = this;
+        return await repositoryRepo.findOne({ hash, user });
+    }
+
+    public saveRepository = async (repository) => {
+        const { repositoryRepo } = this;
+        return await repositoryRepo.save(repository);
     }
 
 }
