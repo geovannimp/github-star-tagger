@@ -18,7 +18,6 @@ export default class Repository {
             });
             runInAction(() => {
                 this.tags = tags;
-                console.log("updated");
             })
         } catch (error) {}
     }
