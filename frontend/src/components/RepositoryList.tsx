@@ -100,14 +100,14 @@ class TagsList extends Component<TagsListProps> {
                             <img src={editIcon}/>
                         </li>
                     )}
-                    body={[
-                        (<label>Tags</label>),
-                        (<input value={tagsValue} onChange={this.handleTagsChange}/>),
-                        (<div>
+                    body={(<>
+                        <label>Tags</label>
+                        <input value={tagsValue} onChange={this.handleTagsChange}/>
+                        <div>
                             <span>*Separete tags by commas</span>
                             <button onClick={this.handleUpdateTags}>Update</button>
-                        </div>)
-                    ]}
+                        </div>
+                    </>)}
                 />
             </ul>
         );

@@ -67,6 +67,7 @@ export default {
         server.get('/auth/github', AuthRoutes.github)
         server.get('/auth/github/callback', AuthRoutes.githubCallback)
         server.get('/profile', requireAuth, UserRoutes.profile)
+        server.get('/logout', requireAuth, UserRoutes.logout)
         server.get('/repositories', requireAuth, RepositoriesRoutes.list)
         server.put('/repositories/:hash/tags', requireAuth, RepositoriesRoutes.updateTags)
         server.get('/import/repositories', requireAuth, ImportRoutes.repositories)

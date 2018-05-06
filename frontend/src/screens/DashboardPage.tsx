@@ -37,7 +37,7 @@ export default class DashboardPage extends Component<any> {
         const { user, filteredRepositories, filter } = this.injected.userStore;
         return (
             <>
-                <Header/>
+                <Header user={user}/>
                 <main className="dashboard-page">
                     <div className="container">
                         <aside>

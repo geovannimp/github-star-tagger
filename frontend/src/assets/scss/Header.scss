@@ -12,15 +12,34 @@ header {
         height: 100%;
     }
 
-    .login-btn {
+    .login-btn, .user-label {
         height: 40px;
         line-height: 40px;
         text-align: center;
         text-decoration: none;
-        background: #43474C;
-        border-radius: 5px;
-        width: 150px;
+        padding: 0 20px;
         color: white;
+        border-radius: 5px;
         display: inline-block;
+        cursor: pointer;
+    }
+
+    .login-btn {
+        background: #43474C;
+        width: 150px;
+    }
+
+    .user-label {
+        &:hover {
+            background: #43474C;
+        }
+
+        img {
+            border-radius: 5px;
+            width: 30px;
+            margin: 5px 10px;
+            margin-right: 0;
+            float: right;
+        }
     }
 }

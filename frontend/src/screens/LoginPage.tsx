@@ -19,10 +19,14 @@ export default class LoginPage extends Component<any> {
     }
     componentDidMount() {
         const { location, history } = this.props;
-        const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
-        if (token) {
-            history.replace(location.pathname);
-            this.injected.userStore.fetchUser(token);
+        if(location.state && location.state.logout){
+            this.injected.userStore.logout();
+        } else {
+            const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
+            if (token) {
+                history.replace(location.pathname);
+                this.injected.userStore.fetchUser(token);
+            }
         }
     }
     render() {

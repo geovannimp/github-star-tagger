@@ -67,6 +67,14 @@ class UserService {
         return await repositoryRepo.save(repository);
     }
 
+    public logout = async (user) => {
+        return await this.connection.createQueryBuilder()
+            .delete()
+            .from(Token)
+            .where("user = :user", { user: user.id })
+            .execute();
+    }
+
 }
 
 export default UserService;

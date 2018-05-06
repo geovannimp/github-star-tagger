@@ -52,4 +52,12 @@ export default class UserStore {
             })
         }
     }
+
+    @action
+    public async logout() {
+        this.api.get('/logout');
+        this.user = undefined;
+        this.repositories = [];
+        this.authorization = "";
+    }
 }
