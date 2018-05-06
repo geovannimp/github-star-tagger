@@ -31,13 +31,11 @@ export default {
                     error: 'Invalid body'
                 }, next)
             }
-            console.log(req.body);
         } else {
             res.status(404);
             res.send({
                 error: 'Repository not found'
             }, next)
         }
-        res.send(user.repositories, next)
     }
 }
