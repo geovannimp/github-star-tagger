@@ -15,8 +15,12 @@ The project prototypes can be found here: https://www.figma.com/file/Qf4g96gHj59
 
 As prerequisites you will need nodejs 8 or higher and sqlite
 
+You will need also to generate a github key and insert into `backend/.env`   
+Follow these instructions with below information: https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/
+
 ```
-Give examples
+Homepage URL: http://localhost:9005
+Authorization callback URL: http://localhost:8080/auth/github/callback
 ```
 
 ### Installing
