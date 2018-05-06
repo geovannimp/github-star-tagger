@@ -17,7 +17,9 @@
     "qs": "^6.5.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-emoji-render": "^0.4.4",
     "react-particles-js": "^2.1.2",
+    "react-popover": "^0.5.5",
     "react-router-dom": "^4.2.2",
     "reflect-metadata": "^0.1.8"
   },
@@ -26,6 +28,7 @@
     "@types/jest": "22.2.3",
     "@types/react": "^16.3.12",
     "@types/react-dom": "^16.0.5",
+    "@types/react-popover": "^0.5.1",
     "@types/react-router-dom": "^4.2.6",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",

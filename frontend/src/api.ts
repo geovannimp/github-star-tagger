@@ -15,4 +15,8 @@ export class Api {
     async post(url:string, data: any) {
         return await this.instance.post(url, data);
     }
+
+    async put(url:string, data: any) {
+        return await this.instance.put(url, data);
+    }
 }

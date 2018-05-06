@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Component } from 'react';
 import { NavLink, Router } from 'react-router-dom';
+
 import * as logoText from '../assets/img/logo-text.svg';
+import '../assets/scss/Header.scss';
 
 export interface HeaderProps {
     LoggedUser?: any;
