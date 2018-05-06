@@ -7,6 +7,10 @@ System to tag your stared github projects
 This project is all developed with nodejs ans is separeted in two folters, `backend` and `frontend`.   
 Each have their own package.json
 
+## Prototypes
+
+The project prototypes can be found here: https://www.figma.com/file/Qf4g96gHj59UrL6nqyNrtFbB/Github-Star-Tagger
+
 ### Prerequisites
 
 As prerequisites you will need nodejs 8 or higher and sqlite
