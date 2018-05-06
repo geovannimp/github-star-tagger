@@ -35,7 +35,7 @@ export default class DashboardSearchInput extends Component<DashboardSearchInput
             <form>
                 <div className="dashbord-search-input">
                     <img src={searchIcon}/>
-                    <input value={this.state.filter} onChange={this.handleFilterChange}/>
+                    <input value={this.state.filter} onChange={this.handleFilterChange} placeholder="Search by tags"/>
                     <button onClick={this.handleSearch}>Search</button>
                 </div>
             </form>
